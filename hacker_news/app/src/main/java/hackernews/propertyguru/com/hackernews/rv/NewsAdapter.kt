@@ -1,10 +1,12 @@
 package hackernews.propertyguru.com.hackernews.rv
 
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.thefinestartist.finestwebview.FinestWebView
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 
@@ -30,6 +32,12 @@ class NewsAdapter(private val storyDetails: List<GetStoryDetailResponse>) : Recy
 
         fun bindData(storyDetail: GetStoryDetailResponse) {
             titleTv.text = storyDetail.title
+
+            itemView.setOnClickListener {
+                if (!TextUtils.isEmpty(storyDetail.url)) {
+                    FinestWebView.Builder(itemView.context).show(storyDetail.url!!)
+                }
+            }
         }
     }
 }
