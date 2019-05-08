@@ -17,7 +17,15 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'END_POINT', '\"https://hacker-news.firebaseio.com/v0/\"'
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'END_POINT', '\"https://hacker-news.firebaseio.com/v0/\"'
         }
     }
 }
