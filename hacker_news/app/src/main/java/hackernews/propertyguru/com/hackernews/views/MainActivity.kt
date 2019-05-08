@@ -1,6 +1,7 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
@@ -27,6 +28,9 @@ class MainActivity : BaseActivity() {
 
         newsRecyclerView = findViewById(R.id.news_rv)
         newsRecyclerView?.layoutManager = linearLayoutManager
+
+        val itemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        newsRecyclerView?.addItemDecoration(itemDecor)
 
         newsRecyclerView?.setEmptyView(findViewById(R.id.empty_view))
         newsRecyclerView?.adapter = newsAdapter

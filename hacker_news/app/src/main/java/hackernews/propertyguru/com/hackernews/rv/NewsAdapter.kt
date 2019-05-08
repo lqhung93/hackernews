@@ -5,6 +5,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.thefinestartist.finestwebview.FinestWebView
 import hackernews.propertyguru.com.hackernews.R
@@ -29,9 +31,14 @@ class NewsAdapter(private val storyDetails: List<GetStoryDetailResponse>) : Recy
 
     class RowHolder(v: View) : RecyclerView.ViewHolder(v) {
         private val titleTv: TextView = v.findViewById(R.id.title_tv)
+        private val sourceTv: TextView = v.findViewById(R.id.source_tv)
+        private val commentBtn: RelativeLayout = v.findViewById(R.id.comment_btn)
+        private val commentTv: TextView = v.findViewById(R.id.comment_tv)
 
         fun bindData(storyDetail: GetStoryDetailResponse) {
             titleTv.text = storyDetail.title
+            sourceTv.text = storyDetail.by
+            commentTv.text = storyDetail.kids?.size.toString()
 
             itemView.setOnClickListener {
                 if (!TextUtils.isEmpty(storyDetail.url)) {
