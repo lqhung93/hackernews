@@ -31,12 +31,14 @@ class NewsAdapter(private val storyDetails: List<GetStoryDetailResponse>) : Recy
 
     class RowHolder(v: View) : RecyclerView.ViewHolder(v) {
         private val titleTv: TextView = v.findViewById(R.id.title_tv)
+        private val scoreTv: TextView = v.findViewById(R.id.score_tv)
         private val sourceTv: TextView = v.findViewById(R.id.source_tv)
         private val commentBtn: RelativeLayout = v.findViewById(R.id.comment_btn)
         private val commentTv: TextView = v.findViewById(R.id.comment_tv)
 
         fun bindData(storyDetail: GetStoryDetailResponse) {
             titleTv.text = storyDetail.title
+            scoreTv.text = storyDetail.score
             sourceTv.text = storyDetail.by
             commentTv.text = storyDetail.kids?.size.toString()
 
