@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.thefinestartist.finestwebview.FinestWebView
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
+import hackernews.propertyguru.com.hackernews.utils.Utils
 
 /**
  * Created by hung on 5/8/19.
@@ -39,8 +40,8 @@ class NewsAdapter(private val storyDetails: List<GetStoryDetailResponse>) : Recy
         fun bindData(storyDetail: GetStoryDetailResponse) {
             titleTv.text = storyDetail.title
             scoreTv.text = storyDetail.score
-            sourceTv.text = storyDetail.by
-            commentTv.text = storyDetail.kids?.size.toString()
+            sourceTv.text = Utils.getDomainName(storyDetail.url)
+            commentTv.text = storyDetail.descendants
 
             itemView.setOnClickListener {
                 if (!TextUtils.isEmpty(storyDetail.url)) {
