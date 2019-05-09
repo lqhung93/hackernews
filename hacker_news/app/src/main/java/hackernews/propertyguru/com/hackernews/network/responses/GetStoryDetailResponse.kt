@@ -9,7 +9,7 @@ import java.io.Serializable
 class GetStoryDetailResponse(@SerializedName(value = "by") val by: String?,
                              @SerializedName(value = "descendants") val descendants: String?,
                              @SerializedName(value = "id") val id: String?,
-                             @SerializedName(value = "kids") val kids: List<String>?,
+                             @SerializedName(value = "kids") val kids: ArrayList<String>?,
                              @SerializedName(value = "score") val score: String?,
                              @SerializedName(value = "time") val time: String?,
                              @SerializedName(value = "title") val title: String?,
