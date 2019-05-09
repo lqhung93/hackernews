@@ -7,5 +7,6 @@ class C {
 
     companion object {
         val LOCK = Any()
+        val COMMENT_LIST = "COMMENT_LIST"
     }
 }
