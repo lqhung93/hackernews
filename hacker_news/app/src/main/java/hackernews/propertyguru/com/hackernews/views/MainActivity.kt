@@ -20,8 +20,7 @@ class MainActivity : BaseActivity() {
 
     private var newsRefreshLayout: SwipeRefreshLayout? = null
     private var newsRecyclerView: CustomRecyclerView? = null
-    private var storyDetails: ArrayList<GetStoryDetailResponse> = arrayListOf()
-    private var newsAdapter = NewsAdapter(storyDetails)
+    private var newsAdapter = NewsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,21 +63,12 @@ class MainActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onGettingStoryDetail(response: GetStoryDetailResponse) {
-        LogUtils.e(TAG, "Res: $response")
-
-        var index = storyDetails.indexOf(response)
-        if (index != -1) {
-            storyDetails[index] = response
-        } else {
-            storyDetails.add(response)
-            index = storyDetails.indexOf(response)
-        }
-
-        newsAdapter.notifyItemChanged(index)
+        LogUtils.d(TAG, "Story detail: $response")
+        newsAdapter.add(response)
     }
 
     private fun invokeApis() {
-        storyDetails.clear()
+        newsAdapter.clear()
         pollingCenter.getTopStories()
     }
 }
