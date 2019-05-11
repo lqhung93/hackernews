@@ -6,10 +6,18 @@
     android:layout_height="match_parent"
     tools:context="views.CommentActivity">
 
-    <hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
-        android:id="@+id/news_rv"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/comments_swipe_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
+            android:id="@+id/comments_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/empty_view"
@@ -19,7 +27,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no_news"
+            android:text="@string/no_comments"
+            android:textSize="@dimen/medium_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
