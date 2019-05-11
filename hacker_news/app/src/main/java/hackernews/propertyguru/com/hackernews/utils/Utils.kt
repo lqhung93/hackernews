@@ -1,6 +1,7 @@
 package hackernews.propertyguru.com.hackernews.utils
 
 import java.net.URI
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -71,6 +72,15 @@ class Utils {
 
         fun toRelative(start: Date, end: Date, level: Int): String {
             return toRelative(end.time - start.time, level)
+        }
+
+        fun toDateTime(duration: Long): String {
+            try {
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                return sdf.format(duration)
+            } catch (e: Exception) {
+                return duration.toString()
+            }
         }
     }
 }

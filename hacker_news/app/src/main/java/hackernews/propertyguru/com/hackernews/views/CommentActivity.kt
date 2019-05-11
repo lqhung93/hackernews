@@ -13,6 +13,7 @@ import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 class CommentActivity : BaseActivity() {
 
@@ -23,9 +24,11 @@ class CommentActivity : BaseActivity() {
     private var storyDetails: ArrayList<GetStoryDetailResponse> = arrayListOf()
     private var commentsAdapter = CommentsAdapter(storyDetails)
 
+    private var idsStack: Stack<String> = Stack()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_comment)
 
         val linearLayoutManager = LinearLayoutManager(this)
 
@@ -47,11 +50,14 @@ class CommentActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onGettingStoryDetail(response: GetStoryDetailResponse) {
-        LogUtils.e(TAG, "Res: $response")
+        LogUtils.d(TAG, "Comment detail: $response")
 
-        if (TextUtils.isEmpty(response.text)) {
+        if (TextUtils.isEmpty(response.type) || (response.type != "comment")) {
+            getCommentDetail()
+            return
+        }
 
-        } else {
+        if (!TextUtils.isEmpty(response.text)) {
             var index = storyDetails.indexOf(response)
             if (index != -1) {
                 storyDetails[index] = response
@@ -63,14 +69,27 @@ class CommentActivity : BaseActivity() {
             commentsAdapter.notifyItemChanged(index)
         }
 
+        pushDataToStack(response.kids)
         commentsRefreshLayout?.isRefreshing = false
     }
 
     private fun invokeApis() {
-        storyDetails.clear()
+        pushDataToStack(intent.getSerializableExtra(C.COMMENT_LIST) as ArrayList<String>)
+    }
 
-        (intent.getSerializableExtra(C.COMMENT_LIST) as ArrayList<String>).forEach {
-            pollingCenter.getStoryDetail(it)
+    private fun getCommentDetail() {
+        try {
+            pollingCenter.getStoryDetail(idsStack.pop())
+        } catch (e: EmptyStackException) {
+
         }
+    }
+
+    private fun pushDataToStack(data: ArrayList<String>?) {
+        if (data != null && data.isNotEmpty()) {
+            idsStack.addAll(data)
+        }
+
+        getCommentDetail()
     }
 }
