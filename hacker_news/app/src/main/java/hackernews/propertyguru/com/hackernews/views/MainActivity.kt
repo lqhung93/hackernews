@@ -19,7 +19,7 @@ class MainActivity : BaseActivity() {
     private val TAG = LogUtils.makeTag(MainActivity::class.java)
 
     private var newsRefreshLayout: SwipeRefreshLayout? = null
-    private var newsRecyclerView: RecyclerView? = null
+    private var newsRecyclerView: CustomRecyclerView? = null
     private var storyDetails: ArrayList<GetStoryDetailResponse> = arrayListOf()
     private var newsAdapter = NewsAdapter(storyDetails)
 
@@ -40,7 +40,7 @@ class MainActivity : BaseActivity() {
         val itemDecor = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         newsRecyclerView?.addItemDecoration(itemDecor)
 
-//        newsRecyclerView?.setEmptyView(findViewById(R.id.empty_view))
+        newsRecyclerView?.setEmptyView(findViewById(R.id.empty_view))
         newsRecyclerView?.adapter = newsAdapter
     }
 
