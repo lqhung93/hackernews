@@ -26,7 +26,8 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.RowHolder>() {
         override fun compare(res0: GetStoryDetailResponse?, res1: GetStoryDetailResponse?): Int {
             val tmp0 = res0?.time?.toLong() ?: 0
             val tmp1 = res1?.time?.toLong() ?: 0
-            return tmp0.compareTo(tmp1)
+            // Decrease order
+            return tmp1.compareTo(tmp0)
         }
 
         override fun onChanged(position: Int, count: Int) {
