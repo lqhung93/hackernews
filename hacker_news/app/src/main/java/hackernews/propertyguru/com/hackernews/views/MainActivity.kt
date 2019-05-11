@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
-import hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
 import hackernews.propertyguru.com.hackernews.rv.NewsAdapter
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
 import org.greenrobot.eventbus.Subscribe
