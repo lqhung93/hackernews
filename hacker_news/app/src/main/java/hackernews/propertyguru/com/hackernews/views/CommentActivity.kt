@@ -50,7 +50,7 @@ class CommentActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onGettingStoryDetail(response: GetStoryDetailResponse) {
-        LogUtils.e(TAG, "Comment detail: $response")
+        LogUtils.d(TAG, "Comment detail: $response")
 
         if (TextUtils.isEmpty(response.type) || (response.type != "comment")) {
             getCommentDetail()
@@ -69,23 +69,12 @@ class CommentActivity : BaseActivity() {
             commentsAdapter.notifyItemChanged(index)
         }
 
-        val kids = response.kids
-        if (kids != null && kids.isNotEmpty()) {
-            idsStack.addAll(kids)
-        }
-
-        getCommentDetail()
-
+        pushDataToStack(response.kids)
         commentsRefreshLayout?.isRefreshing = false
     }
 
     private fun invokeApis() {
-        storyDetails.clear()
-
-        // Already check null and last activity
-        idsStack.addAll(intent.getSerializableExtra(C.COMMENT_LIST) as ArrayList<String>)
-
-        getCommentDetail()
+        pushDataToStack(intent.getSerializableExtra(C.COMMENT_LIST) as ArrayList<String>)
     }
 
     private fun getCommentDetail() {
@@ -94,5 +83,13 @@ class CommentActivity : BaseActivity() {
         } catch (e: EmptyStackException) {
 
         }
+    }
+
+    private fun pushDataToStack(data: ArrayList<String>?) {
+        if (data != null && data.isNotEmpty()) {
+            idsStack.addAll(data)
+        }
+
+        getCommentDetail()
     }
 }
