@@ -3,10 +3,8 @@ package hackernews.propertyguru.com.hackernews.network.api
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
 import retrofit2.Call
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
  * Created by hung on 5/8/19.
