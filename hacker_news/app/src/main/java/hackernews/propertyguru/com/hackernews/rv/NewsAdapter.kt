@@ -38,12 +38,14 @@ class NewsAdapter(private val storyDetails: ArrayList<GetStoryDetailResponse>) :
         private val sourceTv: TextView = v.findViewById(R.id.source_tv)
         private val commentBtn: RelativeLayout = v.findViewById(R.id.comment_btn)
         private val commentTv: TextView = v.findViewById(R.id.comment_tv)
+        private val dateTv: TextView = v.findViewById(R.id.date_tv)
 
         fun bindData(storyDetail: GetStoryDetailResponse) {
             titleTv.text = storyDetail.title
             scoreTv.text = storyDetail.score
             sourceTv.text = Utils.getDomainName(storyDetail.url)
             commentTv.text = storyDetail.descendants
+            dateTv.text = Utils.toRelative(storyDetail.time?.toLong() ?: 0)
 
             itemView.setOnClickListener {
                 if (!TextUtils.isEmpty(storyDetail.url)) {
