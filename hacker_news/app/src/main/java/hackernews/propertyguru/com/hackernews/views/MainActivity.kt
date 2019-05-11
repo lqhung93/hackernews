@@ -49,15 +49,11 @@ class MainActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onGettingTopStories(response: GetTopStoriesResponse) {
-        val ids = response.ids
-
-        ids.forEach {
+        response.ids.forEach {
             pollingCenter.getStoryDetail(it)
-
-            if (it == ids.last()) {
-                newsRefreshLayout?.isRefreshing = false
-            }
         }
+
+        newsRefreshLayout?.isRefreshing = false
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
