@@ -4,19 +4,22 @@ import android.os.Build
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.text.Spanned
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
+import hackernews.propertyguru.com.hackernews.utils.LogUtils
+import hackernews.propertyguru.com.hackernews.utils.Utils
 import java.util.*
 
 /**
  * Created by hung on 5/8/19.
  */
 class CommentsAdapter(private val storyDetails: ArrayList<GetStoryDetailResponse>) : RecyclerView.Adapter<CommentsAdapter.RowHolder>() {
+
+    private val TAG = LogUtils.makeTag(CommentsAdapter::class.java)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
         return RowHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_comment, parent, false))
@@ -42,7 +45,7 @@ class CommentsAdapter(private val storyDetails: ArrayList<GetStoryDetailResponse
         }
 
         private fun prettyTime(time: String): String {
-            return DateUtils.getRelativeTimeSpanString(time.toLong()).toString()
+            return Utils.toRelative(time.toLong(), 1)
         }
 
         private fun parseHtml(html: String): Spanned {
