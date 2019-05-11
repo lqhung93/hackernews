@@ -108,7 +108,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.RowHolder>() {
             scoreTv.text = storyDetail.score
             sourceTv.text = Utils.getDomainName(storyDetail.url)
             commentTv.text = storyDetail.descendants
-            dateTv.text = Utils.toRelative(storyDetail.time?.toLong() ?: 0)
+            dateTv.text = Utils.toDateTime((storyDetail.time?.toLong() ?: 0) * 1000)
 
             itemView.setOnClickListener {
                 if (!TextUtils.isEmpty(storyDetail.url)) {
