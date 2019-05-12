@@ -41,10 +41,20 @@ class MainActivityTest {
         var gson: Gson? = null
         var pollingCenter: PollingCenter? = null
 
-        @BeforeClass
+        @BeforeClass @JvmStatic
         fun setUp() {
-            gson = GsonBuilder().create()
-            pollingCenter = PollingCenter.getPollingCenter()
+            gson = GsonBuilder()
+                    .registerTypeAdapter(GetTopStoriesResponse::class.java, GetTopStoriesDeserializer())
+                    .enableComplexMapKeySerialization()
+                    .serializeNulls()
+                    .setDateFormat(DateFormat.LONG)
+                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                    .setPrettyPrinting()
+                    .setVersion(1.0)
+                    .setLenient()
+                    .create()
+
+            pollingCenterTest = PollingCenterTest.getPollingCenter()
         }
     }
 
