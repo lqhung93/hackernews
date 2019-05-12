@@ -70,7 +70,7 @@ class MainActivityTest {
 
         val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
-            pollingCenterTest?.getStoryDetail(it)
+            pollingCenterTest?.getStoryDetail(it, "story")
         }
 
         reloadActivity()

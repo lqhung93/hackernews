@@ -33,10 +33,10 @@ class PollingCenterTest {
                         .withBody(jsonBody)))
     }
 
-    fun getStoryDetail(id: String) {
+    fun getStoryDetail(id: String, dirName: String) {
         val url = "/item/$id.json"
         BaseUrlChangingInterceptor.get().setInterceptor(Constants.LOCAL_HOST + url)
-        val jsonBody = AssetsReader.asset("story/$id.json")
+        val jsonBody = AssetsReader.asset("$dirName/$id.json")
         stubFor(get(urlPathMatching(url))
                 .willReturn(aResponse()
                         .withStatus(HttpURLConnection.HTTP_OK)
