@@ -1,39 +1,32 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.content.Intent
-import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.UiController
 import android.support.test.espresso.ViewAction
-import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.BoundedMatcher
 import android.support.test.espresso.matcher.ViewMatchers.isEnabled
-import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit.WireMockRule
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.PollingCenterTest
-import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesDeserializer
+import hackernews.propertyguru.com.hackernews.network.api.HnApiService
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
 import hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
 import hackernews.propertyguru.com.hackernews.rv.NewsAdapter
 import hackernews.propertyguru.com.hackernews.utils.AssetsReader
+import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.Constants
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
-import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withItemCount
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.text.DateFormat
 
 
 /**
@@ -45,30 +38,24 @@ class MainActivityTest {
     private val TAG = LogUtils.makeTag(MainActivityTest::class.java)
 
     companion object {
-        var gson: Gson? = null
+        var gsonTest: Gson? = null
         var pollingCenterTest: PollingCenterTest? = null
 
-        @BeforeClass @JvmStatic
+        @BeforeClass
+        @JvmStatic
         fun setUp() {
-            gson = GsonBuilder()
-                    .registerTypeAdapter(GetTopStoriesResponse::class.java, GetTopStoriesDeserializer())
-                    .enableComplexMapKeySerialization()
-                    .serializeNulls()
-                    .setDateFormat(DateFormat.LONG)
-                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                    .setPrettyPrinting()
-                    .setVersion(1.0)
-                    .setLenient()
-                    .create()
-
+            gsonTest = HnApiService.gson
+            C.END_POINT = Constants.LOCAL_HOST
             pollingCenterTest = PollingCenterTest.getPollingCenter()
         }
     }
 
-    @Rule @JvmField
+    @Rule
+    @JvmField
     var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
 
-    @Rule @JvmField
+    @Rule
+    @JvmField
     var wireMockRule = WireMockRule(wireMockConfig().port(Constants.PORT))
 
 
@@ -76,7 +63,7 @@ class MainActivityTest {
     fun checkNewsRecyclerViewItemCount() {
         pollingCenterTest?.getTopStories()
 
-        val getTopStoriesResponse = gson?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
+        val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
             pollingCenterTest?.getStoryDetail(it)
         }

@@ -20,6 +20,16 @@ class HnApiService {
     companion object {
         private var hnApiService: HnService? = null
         private var retrofit: Retrofit? = null
+        val gson = GsonBuilder()
+                .registerTypeAdapter(GetTopStoriesResponse::class.java, GetTopStoriesDeserializer())
+                .enableComplexMapKeySerialization()
+                .serializeNulls()
+                .setDateFormat(DateFormat.LONG)
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
+                .setVersion(1.0)
+                .setLenient()
+                .create()
 
         fun getService(): HnService {
             if (hnApiService == null) {
@@ -31,17 +41,6 @@ class HnApiService {
 
         private fun getRetrofit(): Retrofit {
             if (retrofit == null) {
-                val gson = GsonBuilder()
-                        .registerTypeAdapter(GetTopStoriesResponse::class.java, GetTopStoriesDeserializer())
-                        .enableComplexMapKeySerialization()
-                        .serializeNulls()
-                        .setDateFormat(DateFormat.LONG)
-                        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                        .setPrettyPrinting()
-                        .setVersion(1.0)
-                        .setLenient()
-                        .create()
-
                 val interceptor = HttpLoggingInterceptor()
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
 
