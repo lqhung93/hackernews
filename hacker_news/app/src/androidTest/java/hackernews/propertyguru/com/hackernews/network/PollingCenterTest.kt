@@ -24,7 +24,7 @@ class PollingCenterTest {
     }
 
     fun getTopStories() {
-        val url = "topstories.json"
+        val url = "/topstories.json"
         BaseUrlChangingInterceptor.get().setInterceptor(Constants.LOCAL_HOST + url)
         val jsonBody = AssetsReader.asset("topstories.json")
         stubFor(get(urlPathMatching(url))
@@ -34,7 +34,7 @@ class PollingCenterTest {
     }
 
     fun getStoryDetail(id: String) {
-        val url = "item/$id.json"
+        val url = "/item/$id.json"
         BaseUrlChangingInterceptor.get().setInterceptor(Constants.LOCAL_HOST + url)
         val jsonBody = AssetsReader.asset("$id.json")
         stubFor(get(urlPathMatching(url))
