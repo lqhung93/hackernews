@@ -2,7 +2,6 @@ package hackernews.propertyguru.com.hackernews.network.api
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import hackernews.propertyguru.com.hackernews.BuildConfig
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesDeserializer
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
 import hackernews.propertyguru.com.hackernews.utils.C
@@ -53,7 +52,7 @@ class HnApiService {
                         .addInterceptor(interceptor)
                         .build()
                 retrofit = Retrofit.Builder()
-                        .baseUrl(C.url)
+                        .baseUrl(C.END_POINT)
                         .client(client)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build()

@@ -13,7 +13,7 @@ class C {
         const val COMMENT_LIST = "COMMENT_LIST"
         const val RECYCLER_VIEW_STATE = "RECYCLER_VIEW_STATE"
 
-        var url = BuildConfig.END_POINT
+        var END_POINT = BuildConfig.END_POINT
             @VisibleForTesting
             set(value) {
                 field = value
