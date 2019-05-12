@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.MenuItem
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 import hackernews.propertyguru.com.hackernews.rv.CommentsAdapter
@@ -46,6 +47,15 @@ class CommentActivity : BaseActivity() {
         commentsRecyclerView?.adapter = commentsAdapter
 
         invokeApis()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
