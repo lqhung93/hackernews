@@ -1,10 +1,12 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.MenuItem
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 import hackernews.propertyguru.com.hackernews.rv.CommentsAdapter
@@ -25,6 +27,7 @@ class CommentActivity : BaseActivity() {
     private var commentsAdapter = CommentsAdapter(storyDetails)
 
     private var idsStack: Stack<String> = Stack()
+    private var recyclerViewState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +49,32 @@ class CommentActivity : BaseActivity() {
         commentsRecyclerView?.adapter = commentsAdapter
 
         invokeApis()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        commentsRecyclerView?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+        commentsRecyclerView = null
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        recyclerViewState = savedInstanceState?.getParcelable(C.RECYCLER_VIEW_STATE) as Parcelable
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        recyclerViewState = commentsRecyclerView?.layoutManager?.onSaveInstanceState()
+        outState?.putParcelable(C.RECYCLER_VIEW_STATE, recyclerViewState)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

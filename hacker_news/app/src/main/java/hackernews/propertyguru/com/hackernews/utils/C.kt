@@ -7,6 +7,7 @@ class C {
 
     companion object {
         val LOCK = Any()
-        val COMMENT_LIST = "COMMENT_LIST"
+        const val COMMENT_LIST = "COMMENT_LIST"
+        const val RECYCLER_VIEW_STATE = "RECYCLER_VIEW_STATE"
     }
 }
