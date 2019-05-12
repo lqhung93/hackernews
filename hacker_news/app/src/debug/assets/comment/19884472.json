@@ -1,0 +1,17 @@
+{
+  "by": "mrath",
+  "descendants": null,
+  "id": "19884472",
+  "kids": [
+    "19888612",
+    "19884549",
+    "19885090"
+  ],
+  "parent": "19884273",
+  "score": null,
+  "text": "Is swift a common language for kind of thing tensorflow is used for? Given that swift does not work on windows and Linux support is sub par, is this only because of Chris Lattner?",
+  "time": "1557547348",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

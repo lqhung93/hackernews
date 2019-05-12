@@ -1,0 +1,15 @@
+{
+  "by": "orbifold",
+  "descendants": null,
+  "id": "19885939",
+  "kids": [
+    "19889745"
+  ],
+  "parent": "19885100",
+  "score": null,
+  "text": "Julia compares very unfavourably to both Python and Swift: Slow startup time (unpredictable JIT compiler lag), terrible error messages and stack traces, duck typing misrepresented as type checking. I&#x27;ve tried using it for what it is meant for (numerical code &#x2F; ODE solving etc.) multiple times now. It performs admirably in that domain.<p>But no ten horses would make me use it for anything else. Machine learning needs to be fully integrated into the larger language ecosystem. You can easily imagine developing a large scale software product in Swift, not so much in Julia (even less so than in Python). Julia is probably a Nightmare to develop in once you have more than 10 people working on the project.<p>The internal structure of Julia&#x27;s compiler is also a mess compared to the Swift compiler. You could easily imagine building a compile service &#x2F; large scale build system &#x2F; tooling for swift, not so much for Julia. Plus they were able to easily extend the Swift intermediate language in the way they wanted to, while there is no comparable abstraction in Julia. The Swift compiler also fits neatly into the C++ based ecosystem that Google has.",
+  "time": "1557579661",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

@@ -116,7 +116,7 @@ class CommentActivity : BaseActivity() {
 
     private fun pushDataToStack(data: ArrayList<String>?) {
         if (data != null && data.isNotEmpty()) {
-            idsStack.addAll(data)
+            idsStack.addAll(data.reversed())
         }
 
         getCommentDetail()

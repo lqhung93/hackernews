@@ -1,0 +1,22 @@
+{
+  "by": "jimfleming",
+  "descendants": null,
+  "id": "19884481",
+  "kids": [
+    "19884751",
+    "19884615",
+    "19886308",
+    "19884623",
+    "19885757",
+    "19884540",
+    "19884526",
+    "19884503"
+  ],
+  "parent": "19884273",
+  "score": null,
+  "text": "To those that are upvoting this and previous Swift + TF announcements: What are you excited about, specifically? Why Swift? Why not Julia? Is it the syntax? Types? Compilation? Performance? Community?<p>I like Swift and all but our ML&#x2F;DL&#x2F;RL&#x2F;DS tools and libraries are in Python (and occasionally R). Most are missing for Swift without an awkward Python compatibility layer and I don&#x27;t see a compelling reason to adopt it.",
+  "time": "1557547465",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

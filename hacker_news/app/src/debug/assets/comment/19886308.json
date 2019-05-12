@@ -1,0 +1,13 @@
+{
+  "by": "Someone",
+  "descendants": null,
+  "id": "19886308",
+  "kids": null,
+  "parent": "19884481",
+  "score": null,
+  "text": "<i>”To those that are upvoting this and previous Swift + TF announcements […] Why not Julia?”</i><p>You seem to imply that people who upvote both Swift&#x2F;TF articles won’t upvote Julia ones.<p>For me personally, I have upvoted earlier Swift&#x2F;TF articles because they were well-written, and integrating differentiation fairly deeply into the compiler seemed novel to me.<p>I think I also have upvoted some Julia articles in the past, not because they were about Julia, but because they were interesting and well-written.<p><i>”tools and libraries are in Python (and occasionally R). Most are missing for Swift without an awkward Python compatibility layer”</i><p>An upvote need not mean “that’s immediately useful for me”. It could also mean “I like Swift, and this looks quite an improvement for it, making it more competitive with the leading technologies for machine learning” (you like Swift, so you _could_ upvote articles like these for that reason, too)",
+  "time": "1557584536",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

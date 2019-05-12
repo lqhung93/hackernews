@@ -1,0 +1,15 @@
+{
+  "by": "yeldarb",
+  "descendants": null,
+  "id": "19885757",
+  "kids": [
+    "19885921"
+  ],
+  "parent": "19884481",
+  "score": null,
+  "text": "You mentioned it but, for those who don’t know:<p>As a stopgap while all the data science tooling is being built out for Swift you can use anything from the Python ecosystem (including np and pd) by using the Python interop:<p>let np = Python.import(“numpy”)<p><a href=\"https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;swift&#x2F;blob&#x2F;master&#x2F;docs&#x2F;PythonInteroperability.md\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;swift&#x2F;blob&#x2F;master&#x2F;docs&#x2F;PythonI...</a>",
+  "time": "1557576547",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

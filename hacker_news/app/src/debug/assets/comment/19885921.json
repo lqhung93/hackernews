@@ -1,0 +1,16 @@
+{
+  "by": "mlevental",
+  "descendants": null,
+  "id": "19885921",
+  "kids": [
+    "19886809",
+    "19886619"
+  ],
+  "parent": "19885757",
+  "score": null,
+  "text": "how does this work? does it actually compile&#x2F;embed there python interpreter or does it make calls to the system interpreter somehow?",
+  "time": "1557579432",
+  "title": null,
+  "type": "comment",
+  "url": null
+}
