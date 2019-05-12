@@ -1,6 +1,7 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailRe
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
 import hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
 import hackernews.propertyguru.com.hackernews.rv.NewsAdapter
+import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -20,6 +22,8 @@ class MainActivity : BaseActivity() {
     private var newsRefreshLayout: SwipeRefreshLayout? = null
     private var newsRecyclerView: CustomRecyclerView? = null
     private var newsAdapter = NewsAdapter()
+
+    private var recyclerViewState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +44,25 @@ class MainActivity : BaseActivity() {
 
         newsRecyclerView?.setEmptyView(findViewById(R.id.empty_view))
         newsRecyclerView?.adapter = newsAdapter
+
+        invokeApis()
     }
 
-    override fun onStart() {
-        super.onStart()
-        invokeApis()
+    override fun onResume() {
+        super.onResume()
+        newsRecyclerView?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+        newsRecyclerView = null
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        recyclerViewState = savedInstanceState?.getParcelable(C.RECYCLER_VIEW_STATE) as Parcelable
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        recyclerViewState = newsRecyclerView?.layoutManager?.onSaveInstanceState()
+        outState?.putParcelable(C.RECYCLER_VIEW_STATE, recyclerViewState)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
