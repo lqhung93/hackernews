@@ -83,12 +83,22 @@ class MainActivityTest {
 //    fun checkTitleTv() {
 //        onView(withId(R.id.news_rv)).check(matches(withViewInViewHolder(100)))
 //    }
+    @Test
+    fun checkFirstStoryContent() {
+    fun checkFirstStoryTitle() {
+        pollingCenterTest?.getTopStories()
 
-//    @Test
-//    @Throws(Exception::class)
-//    fun buoi() {
-//        onView(withId(R.id.news_rv)).perform(RecyclerViewActions.actionOnItemAtPosition<NewsAdapter.RowHolder>(0, boom(R.id.comment_btn)))
-//    }
+        val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
+        getTopStoriesResponse?.ids?.forEach {
+            pollingCenterTest?.getStoryDetail(it, "story")
+        }
+
+        val getFirstStoryResponse = gsonTest?.fromJson(AssetsReader.asset("story/19884273.json"), GetStoryDetailResponse::class.java)
+
+        reloadActivity()
+
+        onView(withId(R.id.news_rv)).perform(scrollToHolder(withViewInViewHolder(R.id.title_tv, getFirstStoryResponse?.title.toString())))
+    }
 
     class CustomMatcher {
         companion object {
@@ -104,14 +114,14 @@ class MainActivityTest {
                 }
             }
 
-            fun withViewInViewHolder(view: View, id: Int): Matcher<RecyclerView.ViewHolder> {
+            fun withViewInViewHolder(id: Int, content: String): Matcher<RecyclerView.ViewHolder> {
                 return object : BoundedMatcher<RecyclerView.ViewHolder, NewsAdapter.RowHolder>(NewsAdapter.RowHolder::class.java) {
                     override fun describeTo(description: Description?) {
-                        description?.appendText("with view id: $id")
+                        description?.appendText("view holder with title: $content")
                     }
 
                     override fun matchesSafely(item: NewsAdapter.RowHolder?): Boolean {
-                        return item?.itemView?.findViewById<View>(id) == view
+                        return (item?.itemView?.findViewById<TextView>(id))?.text.toString() == content
                     }
                 }
             }
