@@ -1,4 +1,4 @@
-package hackernews.propertyguru.com.hackernews.views
+package hackernews.propertyguru.com.hackernews
 
 import android.content.Intent
 import android.content.res.Resources
@@ -18,7 +18,6 @@ import android.view.View
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.google.gson.Gson
-import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.PollingCenterTest
 import hackernews.propertyguru.com.hackernews.network.api.HnApiService
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
@@ -29,9 +28,11 @@ import hackernews.propertyguru.com.hackernews.utils.AssetsReader
 import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.Constants
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
-import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.atPositionOnView
-import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.performClickView
-import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withItemCount
+import hackernews.propertyguru.com.hackernews.HackerNewsTest.CustomMatcher.Companion.atPositionOnView
+import hackernews.propertyguru.com.hackernews.HackerNewsTest.CustomMatcher.Companion.performClickView
+import hackernews.propertyguru.com.hackernews.HackerNewsTest.CustomMatcher.Companion.withItemCount
+import hackernews.propertyguru.com.hackernews.views.CommentActivity
+import hackernews.propertyguru.com.hackernews.views.MainActivity
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -45,9 +46,9 @@ import org.junit.runner.RunWith
  * Created by hung on 5/10/19.
  */
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class HackerNewsTest {
 
-    private val TAG = LogUtils.makeTag(MainActivityTest::class.java)
+    private val TAG = LogUtils.makeTag(HackerNewsTest::class.java)
 
     companion object {
         var gsonTest: Gson? = null
