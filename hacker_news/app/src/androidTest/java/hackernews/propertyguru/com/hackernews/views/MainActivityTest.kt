@@ -13,7 +13,6 @@ import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.BoundedMatcher
 import android.support.test.espresso.matcher.ViewMatchers.isEnabled
 import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -95,6 +94,11 @@ class MainActivityTest {
         val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
             pollingCenterTest?.getStoryDetail(it, "story")
+        }
+
+        val commentList = AssetsReader.asset("comment/list").split(",").toTypedArray()
+        commentList.forEach {
+            pollingCenterTest?.getStoryDetail(it, "comment")
         }
 
         reloadActivity()
