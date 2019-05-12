@@ -5,6 +5,11 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.UiController
 import android.support.test.espresso.ViewAction
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.contrib.RecyclerViewActions
+import android.support.test.espresso.contrib.RecyclerViewActions.scrollToHolder
+import android.support.test.espresso.intent.Intents.intended
+import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.BoundedMatcher
 import android.support.test.espresso.matcher.ViewMatchers.isEnabled
 import android.support.test.espresso.matcher.ViewMatchers.withId
@@ -12,12 +17,14 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.google.gson.Gson
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.PollingCenterTest
 import hackernews.propertyguru.com.hackernews.network.api.HnApiService
+import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
 import hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
 import hackernews.propertyguru.com.hackernews.rv.NewsAdapter
@@ -25,7 +32,9 @@ import hackernews.propertyguru.com.hackernews.utils.AssetsReader
 import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.Constants
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
+import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.performClickView
 import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withItemCount
+import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withViewInViewHolder
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.junit.BeforeClass
@@ -57,7 +66,7 @@ class MainActivityTest {
 
     @Rule
     @JvmField
-    var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
+    var activityRule = IntentsTestRule<MainActivity>(MainActivity::class.java, true, false)
 
     @Rule
     @JvmField
@@ -74,17 +83,27 @@ class MainActivityTest {
         }
 
         reloadActivity()
+
         onView(withId(R.id.news_rv)).check(matches(withItemCount(getTopStoriesResponse?.ids?.size
                 ?: -1)))
     }
 
-//    @Test
-//    @Throws(Exception::class)
-//    fun checkTitleTv() {
-//        onView(withId(R.id.news_rv)).check(matches(withViewInViewHolder(100)))
-//    }
     @Test
-    fun checkFirstStoryContent() {
+    fun checkOpenFirstStoryComment() {
+        pollingCenterTest?.getTopStories()
+
+        val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
+        getTopStoriesResponse?.ids?.forEach {
+            pollingCenterTest?.getStoryDetail(it, "story")
+        }
+
+        reloadActivity()
+
+        onView(withId(R.id.news_rv)).perform(RecyclerViewActions.actionOnItemAtPosition<NewsAdapter.RowHolder>(0, performClickView(R.id.comment_btn)))
+        intended(hasComponent(CommentActivity::class.java.name))
+    }
+
+    @Test
     fun checkFirstStoryTitle() {
         pollingCenterTest?.getTopStories()
 
@@ -126,14 +145,14 @@ class MainActivityTest {
                 }
             }
 
-            fun boom(id: Int): ViewAction {
+            fun performClickView(id: Int): ViewAction {
                 return object : ViewAction {
                     override fun getConstraints(): Matcher<View> {
                         return isEnabled()
                     }
 
                     override fun getDescription(): String {
-                        return "call doSomething() method"
+                        return "call performClickView() method"
                     }
 
                     override fun perform(uiController: UiController?, view: View?) {
