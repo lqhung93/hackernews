@@ -100,7 +100,7 @@ class MainActivityTest {
         }
 
         // Load all comment details
-        val commentList = AssetsReader.asset("comment/list").split(",").toTypedArray()
+        val commentList = stringToWords(AssetsReader.asset("comment/list"))
         commentList.forEach {
             pollingCenterTest?.getStoryDetail(it, "comment")
         }
@@ -125,13 +125,13 @@ class MainActivityTest {
         reloadActivity()
 
         // Check title of all stories
-        val sortedList = stringToWords(AssetsReader.asset("story/time_sorted_list")) as ArrayList
+        val sortedList = stringToWords(AssetsReader.asset("story/time_sorted_list"))
         for (i in 0 until sortedList.count()!!) {
             compareStoryTitle(sortedList, 1)
         }
     }
 
-    private fun compareStoryTitle(sortedList: ArrayList<String>, position: Int) {
+    private fun compareStoryTitle(sortedList: List<String>, position: Int) {
         val getStoryResponse = gsonTest?.fromJson(AssetsReader.asset("story/" + sortedList[position] + ".json"), GetStoryDetailResponse::class.java)
         onView(atPositionOnView(R.id.news_rv, position, R.id.title_tv)).check(matches(withText(getStoryResponse?.title)))
     }
