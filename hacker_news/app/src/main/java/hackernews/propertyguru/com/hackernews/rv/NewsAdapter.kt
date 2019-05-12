@@ -121,7 +121,6 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.RowHolder>() {
                 commentBtn.setOnClickListener {
                     val intent = Intent(itemView.context, CommentActivity::class.java)
                     intent.putExtra(C.COMMENT_LIST, kids)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     itemView.context.startActivity(intent)
                 }
             }
