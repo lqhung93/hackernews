@@ -42,7 +42,9 @@ class PollingCenter private constructor() {
             val getTopStoriesResponseCall = hnService.getTopStories() as Call<Any>
             execute(getTopStoriesResponseCall, object : IExecuteAction {
                 override fun onSuccess(call: Call<Any>?, response: Response<Any>?) {
-                    EventBus.getDefault().post(response?.body() as GetTopStoriesResponse)
+                    if (response?.body() != null) {
+                        EventBus.getDefault().post(response?.body() as GetTopStoriesResponse)
+                    }
                 }
             })
         }
@@ -53,7 +55,9 @@ class PollingCenter private constructor() {
             val getTopStoriesResponseCall = hnService.getStoryDetail(storyId) as Call<Any>
             execute(getTopStoriesResponseCall, object : IExecuteAction {
                 override fun onSuccess(call: Call<Any>?, response: Response<Any>?) {
-                    EventBus.getDefault().post(response?.body() as GetStoryDetailResponse)
+                    if (response?.body() != null) {
+                        EventBus.getDefault().post(response?.body() as GetStoryDetailResponse)
+                    }
                 }
             })
         }

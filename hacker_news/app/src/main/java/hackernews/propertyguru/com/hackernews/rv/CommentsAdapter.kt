@@ -45,7 +45,7 @@ class CommentsAdapter(private val storyDetails: ArrayList<GetStoryDetailResponse
         }
 
         private fun prettyTime(time: String): String {
-            return Utils.toRelative(time.toLong(), 1)
+            return Utils.toRelative(System.currentTimeMillis() - time.toLong() * 1000, 3)
         }
 
         private fun parseHtml(html: String): Spanned {

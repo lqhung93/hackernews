@@ -1,10 +1,12 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.MenuItem
 import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.responses.GetStoryDetailResponse
 import hackernews.propertyguru.com.hackernews.rv.CommentsAdapter
@@ -13,6 +15,7 @@ import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 class CommentActivity : BaseActivity() {
 
@@ -23,9 +26,12 @@ class CommentActivity : BaseActivity() {
     private var storyDetails: ArrayList<GetStoryDetailResponse> = arrayListOf()
     private var commentsAdapter = CommentsAdapter(storyDetails)
 
+    private var idsStack: Stack<String> = Stack()
+    private var recyclerViewState: Parcelable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_comment)
 
         val linearLayoutManager = LinearLayoutManager(this)
 
@@ -45,13 +51,42 @@ class CommentActivity : BaseActivity() {
         invokeApis()
     }
 
+    override fun onResume() {
+        super.onResume()
+        commentsRecyclerView?.layoutManager?.onRestoreInstanceState(recyclerViewState)
+        commentsRecyclerView = null
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        recyclerViewState = savedInstanceState?.getParcelable(C.RECYCLER_VIEW_STATE) as Parcelable
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        recyclerViewState = commentsRecyclerView?.layoutManager?.onSaveInstanceState()
+        outState?.putParcelable(C.RECYCLER_VIEW_STATE, recyclerViewState)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onGettingStoryDetail(response: GetStoryDetailResponse) {
-        LogUtils.e(TAG, "Res: $response")
+        LogUtils.d(TAG, "Comment detail: $response")
 
-        if (TextUtils.isEmpty(response.text)) {
+        if (TextUtils.isEmpty(response.type) || (response.type != "comment")) {
+            getCommentDetail()
+            return
+        }
 
-        } else {
+        if (!TextUtils.isEmpty(response.text)) {
             var index = storyDetails.indexOf(response)
             if (index != -1) {
                 storyDetails[index] = response
@@ -63,14 +98,27 @@ class CommentActivity : BaseActivity() {
             commentsAdapter.notifyItemChanged(index)
         }
 
+        pushDataToStack(response.kids)
         commentsRefreshLayout?.isRefreshing = false
     }
 
     private fun invokeApis() {
-        storyDetails.clear()
+        pushDataToStack(intent.getSerializableExtra(C.COMMENT_LIST) as ArrayList<String>)
+    }
 
-        (intent.getSerializableExtra(C.COMMENT_LIST) as ArrayList<String>).forEach {
-            pollingCenter.getStoryDetail(it)
+    private fun getCommentDetail() {
+        try {
+            pollingCenter.getStoryDetail(idsStack.pop())
+        } catch (e: EmptyStackException) {
+
         }
+    }
+
+    private fun pushDataToStack(data: ArrayList<String>?) {
+        if (data != null && data.isNotEmpty()) {
+            idsStack.addAll(data)
+        }
+
+        getCommentDetail()
     }
 }
