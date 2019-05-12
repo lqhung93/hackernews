@@ -101,14 +101,15 @@ class MainActivityTest {
     class CustomMatcher {
         companion object {
             fun withItemCount(count: Int): Matcher<View> {
-                return object : BoundedMatcher<View, RecyclerView>(RecyclerView::class.java) {
+                return object : BoundedMatcher<View, CustomRecyclerView>(CustomRecyclerView::class.java) {
                     override fun describeTo(description: Description?) {
                         description?.appendText("with item count: $count")
                     }
 
-                    override fun matchesSafely(item: RecyclerView?): Boolean {
-//                        return item?.adapter?.itemCount == count
-                        return true
+                    override fun matchesSafely(item: CustomRecyclerView?): Boolean {
+                        LogUtils.e("TAG", "Count: " + item?.adapter?.itemCount)
+                        return item?.adapter?.itemCount == count
+//                        return true
                     }
                 }
             }
