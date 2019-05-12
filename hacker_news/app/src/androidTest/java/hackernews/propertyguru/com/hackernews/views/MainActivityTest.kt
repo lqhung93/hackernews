@@ -1,22 +1,20 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.content.Intent
+import android.content.res.Resources
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.UiController
 import android.support.test.espresso.ViewAction
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
-import android.support.test.espresso.contrib.RecyclerViewActions.scrollToHolder
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.espresso.matcher.BoundedMatcher
-import android.support.test.espresso.matcher.ViewMatchers.isEnabled
-import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.google.gson.Gson
@@ -31,11 +29,12 @@ import hackernews.propertyguru.com.hackernews.utils.AssetsReader
 import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.Constants
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
+import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.atPositionOnView
 import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.performClickView
 import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withItemCount
-import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withViewInViewHolder
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -74,8 +73,10 @@ class MainActivityTest {
 
     @Test
     fun checkNewsRecyclerViewItemCount() {
+        // Load top stories list
         pollingCenterTest?.getTopStories()
 
+        // Load all story details
         val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
             pollingCenterTest?.getStoryDetail(it, "story")
@@ -89,13 +90,16 @@ class MainActivityTest {
 
     @Test
     fun checkOpenFirstStoryComment() {
+        // Load top stories list
         pollingCenterTest?.getTopStories()
 
+        // Load all story details
         val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
             pollingCenterTest?.getStoryDetail(it, "story")
         }
 
+        // Load all comment details
         val commentList = AssetsReader.asset("comment/list").split(",").toTypedArray()
         commentList.forEach {
             pollingCenterTest?.getStoryDetail(it, "comment")
@@ -108,19 +112,28 @@ class MainActivityTest {
     }
 
     @Test
-    fun checkFirstStoryTitle() {
+    fun checkEveryStoryTitle() {
+        // Load top stories list
         pollingCenterTest?.getTopStories()
 
+        // Load all story details
         val getTopStoriesResponse = gsonTest?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
             pollingCenterTest?.getStoryDetail(it, "story")
         }
 
-        val getFirstStoryResponse = gsonTest?.fromJson(AssetsReader.asset("story/19884273.json"), GetStoryDetailResponse::class.java)
-
         reloadActivity()
 
-        onView(withId(R.id.news_rv)).perform(scrollToHolder(withViewInViewHolder(R.id.title_tv, getFirstStoryResponse?.title.toString())))
+        // Check title of all stories
+        val sortedList = stringToWords(AssetsReader.asset("story/time_sorted_list")) as ArrayList
+        for (i in 0 until sortedList.count()!!) {
+            compareStoryTitle(sortedList, 1)
+        }
+    }
+
+    private fun compareStoryTitle(sortedList: ArrayList<String>, position: Int) {
+        val getStoryResponse = gsonTest?.fromJson(AssetsReader.asset("story/" + sortedList[position] + ".json"), GetStoryDetailResponse::class.java)
+        onView(atPositionOnView(R.id.news_rv, position, R.id.title_tv)).check(matches(withText(getStoryResponse?.title)))
     }
 
     class CustomMatcher {
@@ -137,14 +150,45 @@ class MainActivityTest {
                 }
             }
 
-            fun withViewInViewHolder(id: Int, content: String): Matcher<RecyclerView.ViewHolder> {
-                return object : BoundedMatcher<RecyclerView.ViewHolder, NewsAdapter.RowHolder>(NewsAdapter.RowHolder::class.java) {
-                    override fun describeTo(description: Description?) {
-                        description?.appendText("view holder with title: $content")
+            fun atPositionOnView(recyclerViewId: Int, position: Int, targetViewId: Int): Matcher<View> {
+
+                return object : TypeSafeMatcher<View>() {
+                    internal var resources: Resources? = null
+                    internal var childView: View? = null
+
+                    override fun describeTo(description: Description) {
+                        var idDescription = Integer.toString(recyclerViewId)
+                        if (this.resources != null) {
+                            idDescription = try {
+                                this.resources!!.getResourceName(recyclerViewId)
+                            } catch (var4: Exception) {
+                                String.format("%s (resource name not found)", Integer.valueOf(recyclerViewId))
+                            }
+                        }
+
+                        description.appendText("with id: $idDescription")
                     }
 
-                    override fun matchesSafely(item: NewsAdapter.RowHolder?): Boolean {
-                        return (item?.itemView?.findViewById<TextView>(id))?.text.toString() == content
+                    public override fun matchesSafely(view: View): Boolean {
+
+                        this.resources = view.resources
+
+                        if (childView == null) {
+                            val recyclerView = view.rootView.findViewById<View>(recyclerViewId) as RecyclerView
+                            if (recyclerView != null && recyclerView.id == recyclerViewId) {
+                                childView = recyclerView.findViewHolderForAdapterPosition(position)!!.itemView
+                            } else {
+                                return false
+                            }
+                        }
+
+                        if (targetViewId == -1) {
+                            return view === childView
+                        } else {
+                            val targetView = childView!!.findViewById<View>(targetViewId)
+                            return view === targetView
+                        }
+
                     }
                 }
             }
@@ -172,4 +216,8 @@ class MainActivityTest {
         val intent = Intent()
         activityRule.launchActivity(intent)
     }
+
+    private fun stringToWords(s: String) = s.trim().splitToSequence(',')
+            .filter { it.isNotEmpty() } // or: .filter { it.isNotBlank() }
+            .toList()
 }
