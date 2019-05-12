@@ -1,10 +1,13 @@
 package hackernews.propertyguru.com.hackernews.views
 
 import android.content.Intent
+import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.UiController
 import android.support.test.espresso.ViewAction
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.BoundedMatcher
 import android.support.test.espresso.matcher.ViewMatchers.isEnabled
+import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
@@ -12,6 +15,7 @@ import android.view.View
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.google.gson.Gson
+import hackernews.propertyguru.com.hackernews.R
 import hackernews.propertyguru.com.hackernews.network.PollingCenterTest
 import hackernews.propertyguru.com.hackernews.network.api.HnApiService
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
@@ -21,6 +25,7 @@ import hackernews.propertyguru.com.hackernews.utils.AssetsReader
 import hackernews.propertyguru.com.hackernews.utils.C
 import hackernews.propertyguru.com.hackernews.utils.Constants
 import hackernews.propertyguru.com.hackernews.utils.LogUtils
+import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withItemCount
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.junit.BeforeClass
@@ -94,9 +99,7 @@ class MainActivityTest {
                     }
 
                     override fun matchesSafely(item: CustomRecyclerView?): Boolean {
-                        LogUtils.e("TAG", "Count: " + item?.adapter?.itemCount)
                         return item?.adapter?.itemCount == count
-//                        return true
                     }
                 }
             }
