@@ -1,0 +1,15 @@
+{
+  "by": "sandGorgon",
+  "descendants": null,
+  "id": "19884661",
+  "kids": [
+    "19884700"
+  ],
+  "parent": "19884273",
+  "score": null,
+  "text": "I&#x27;m very puzzled about the Swift for Tensorflow investment. I understand that&#x27;s primarily because of Chris lattner&#x27;s personal investment...but given Google&#x27;s massive mindshare in Kotlin&#x2F;Dart&#x2F;JavaScript, this is a very puzzling investment.<p>Kotlin is successful because Google was able to drive the direction of the language. For example AndroidX Compose is being built with compiler extensions in Kotlin with Jetbrains.\nDart is obviously driven by Google.<p>Swift is going to be controlled and driven by Apple. From a strategic perspective, I don&#x27;t understand why Google would make an investment like this when Swift-for-Tensorflow has a fundamental need to drive changes in the language itself.<p>Now, I understand if Google didn&#x27;t have an alternative. Are you saying Kotlin is soooooo worse than Swift that you can&#x27;t fundamentally take a similar direction ? Kotlin is currently one of the world&#x27;s most popular languages, born out of sheer LOVE from the community (without being pushed by the giants).",
+  "time": "1557551064",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

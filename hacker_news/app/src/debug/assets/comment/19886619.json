@@ -1,0 +1,13 @@
+{
+  "by": "mlevental",
+  "descendants": null,
+  "id": "19886619",
+  "kids": null,
+  "parent": "19885921",
+  "score": null,
+  "text": "i just tried this out and i&#x27;m blown away that it works. even matplotlib. does anyone know how to point it at a different interpreter? a venv for example?",
+  "time": "1557588275",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

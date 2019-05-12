@@ -1,0 +1,16 @@
+{
+  "by": "cwyers",
+  "descendants": null,
+  "id": "19884700",
+  "kids": [
+    "19884857",
+    "19884713"
+  ],
+  "parent": "19884661",
+  "score": null,
+  "text": "They explain what other languages they looked at:<p><a href=\"https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;swift&#x2F;blob&#x2F;master&#x2F;docs&#x2F;WhySwiftForTensorFlow.md\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;swift&#x2F;blob&#x2F;master&#x2F;docs&#x2F;WhySwif...</a><p>Presumably Kotlin wouldn&#x27;t work for the same reasons they excluded Scala and Java and C#.<p>(I think that either of C++ or Julia would have probably made better choices, given what they spell out here, but they put a lot more thought into what language to use than most HN commenters seem to give them credit for.)",
+  "time": "1557552119",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

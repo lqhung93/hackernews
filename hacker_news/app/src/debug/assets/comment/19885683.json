@@ -1,0 +1,13 @@
+{
+  "by": "mark_l_watson",
+  "descendants": null,
+  "id": "19885683",
+  "kids": null,
+  "parent": "19884273",
+  "score": null,
+  "text": "Glad to see the update. I have experimented with both the macOS and Linux drops before and they were rough. v0.3.1 is focused on providing a productive platform. Anyway I am on travel without a laptop so I need to wait to try it.<p>The idea of LLVM&#x2F;Swift ‘turtles all the way down’ might really pay off in the long run. In TensorFlow there is an un-understandable barrier (for me) between the Python layer and the lower level C++ code. Good to see this Swift effort along side Julia + Flux, which offers the same implementation language for the whole system advantage.",
+  "time": "1557574604",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

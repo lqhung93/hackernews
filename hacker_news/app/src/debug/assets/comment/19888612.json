@@ -1,0 +1,13 @@
+{
+  "by": "rsfinn",
+  "descendants": null,
+  "id": "19888612",
+  "kids": null,
+  "parent": "19884472",
+  "score": null,
+  "text": "Swift support for Windows has apparently been making great strides lately; see, for example, &lt;<a href=\"https:&#x2F;&#x2F;forums.swift.org&#x2F;t&#x2F;swift-windows&#x2F;22458&gt;\" rel=\"nofollow\">https:&#x2F;&#x2F;forums.swift.org&#x2F;t&#x2F;swift-windows&#x2F;22458&gt;</a>. They&#x27;re not quite at the point of announcing &quot;official&quot; support yet, but the test suite was &quot;effectively ... fully passing ... (pending patches)&quot; as of April 1 of this year.<p>Disclaimer: I don&#x27;t use Windows but read the Swift development forums from time to time.",
+  "time": "1557611709",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

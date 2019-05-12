@@ -1,0 +1,16 @@
+{
+  "by": "bobajeff",
+  "descendants": null,
+  "id": "19884882",
+  "kids": [
+    "19885122",
+    "19885264"
+  ],
+  "parent": "19884549",
+  "score": null,
+  "text": "Question if Swift works on Linux right now what are the chances that it also works on Windows&#x27;s new built in Linux (WSL2)?",
+  "time": "1557555734",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

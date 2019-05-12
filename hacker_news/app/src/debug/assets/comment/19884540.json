@@ -1,0 +1,13 @@
+{
+  "by": "oscargrouch",
+  "descendants": null,
+  "id": "19884540",
+  "kids": null,
+  "parent": "19884481",
+  "score": null,
+  "text": "As far as i know, Swift is the only one embedding the graph flow of the TensorFlow directly in its compiler, so those idioms can translante from IR to machine code with paralelism and a fine-tuned machine code.<p>As its very common to target this sort of code to GPU´s, and LLVM can target them as output, i think is mostly because you can design and shape the langage right on its high level representation and tune for high performant code in the low level.<p>The why, i think, its about opportunity.. Chris Lattner going to Google, and people from the language and the compiler side of the fence being open about bake this right into the compiler when necessary.",
+  "time": "1557548618",
+  "title": null,
+  "type": "comment",
+  "url": null
+}
