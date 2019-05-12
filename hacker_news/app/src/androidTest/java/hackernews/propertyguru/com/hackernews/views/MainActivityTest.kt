@@ -14,14 +14,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.junit.WireMockRule
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import hackernews.propertyguru.com.hackernews.R
-import hackernews.propertyguru.com.hackernews.network.PollingCenter
+import hackernews.propertyguru.com.hackernews.network.PollingCenterTest
+import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesDeserializer
 import hackernews.propertyguru.com.hackernews.network.responses.GetTopStoriesResponse
+import hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
 import hackernews.propertyguru.com.hackernews.rv.NewsAdapter
 import hackernews.propertyguru.com.hackernews.utils.AssetsReader
 import hackernews.propertyguru.com.hackernews.utils.Constants
+import hackernews.propertyguru.com.hackernews.utils.LogUtils
 import hackernews.propertyguru.com.hackernews.views.MainActivityTest.CustomMatcher.Companion.withItemCount
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -29,6 +33,7 @@ import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.text.DateFormat
 
 
 /**
@@ -37,9 +42,11 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
+    private val TAG = LogUtils.makeTag(MainActivityTest::class.java)
+
     companion object {
         var gson: Gson? = null
-        var pollingCenter: PollingCenter? = null
+        var pollingCenterTest: PollingCenterTest? = null
 
         @BeforeClass @JvmStatic
         fun setUp() {
@@ -58,22 +65,20 @@ class MainActivityTest {
         }
     }
 
-    @Rule
-    @JvmField
+    @Rule @JvmField
     var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
 
-    @Rule
-    @JvmField
+    @Rule @JvmField
     var wireMockRule = WireMockRule(wireMockConfig().port(Constants.PORT))
 
 
     @Test
     fun checkNewsRecyclerViewItemCount() {
-        pollingCenter?.getTopStories()
+        pollingCenterTest?.getTopStories()
 
         val getTopStoriesResponse = gson?.fromJson(AssetsReader.asset("topstories.json"), GetTopStoriesResponse::class.java)
         getTopStoriesResponse?.ids?.forEach {
-            pollingCenter?.getStoryDetail(it)
+            pollingCenterTest?.getStoryDetail(it)
         }
 
         reloadActivity()

@@ -8,18 +8,18 @@ import java.net.HttpURLConnection
 /**
  * Created by hung on 5/11/19.
  */
-class PollingCenter {
+class PollingCenterTest {
 
     companion object {
 
-        private var pollingCenter: PollingCenter? = null
+        private var pollingCenterTest: PollingCenterTest? = null
 
-        fun getPollingCenter(): PollingCenter {
-            if (pollingCenter == null) {
-                pollingCenter = PollingCenter()
+        fun getPollingCenter(): PollingCenterTest {
+            if (pollingCenterTest == null) {
+                pollingCenterTest = PollingCenterTest()
             }
 
-            return pollingCenter!!
+            return pollingCenterTest!!
         }
     }
 
