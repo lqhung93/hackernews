@@ -33,4 +33,4 @@ Set min SDK version is 16 and target SDK is 28 in **gradle settings**.
 ## 5. Import all necessary libraries in Gradle
 
 ## 6. Source control
-Use [this Git model](https://nvie.com/posts/a-successful-git-branching-model)
+Use [this Git model](https://nvie.com/posts/a-successful-git-branching-model), prevent pushing to master, only can merge from pull request.
