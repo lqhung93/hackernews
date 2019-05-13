@@ -1,6 +1,11 @@
 # Hacker News
 
 ----
+## Author
+*Name*: Hung Le
+
+*Email*: [lqhung93@gmail.com](lqhung93@gmail.com)
+
 ## 1. Introduce source code
 Application contains 2 activities:
 
