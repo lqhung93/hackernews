@@ -1,6 +1,5 @@
 # Hacker News
 
-----
 ## Author
 *Name*: Hung Le
 
