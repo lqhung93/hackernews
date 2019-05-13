@@ -1,0 +1,15 @@
+{
+  "by": "wool_gather",
+  "descendants": null,
+  "id": "19886809",
+  "kids": [
+    "19887232"
+  ],
+  "parent": "19885921",
+  "score": null,
+  "text": "From the linked document:<p>&gt; To accomplish this, the Swift script&#x2F;program simply links the Python interpreter into its code.<p>I would imagine that having the interpreter in another process would be a gigantice performance hit.",
+  "time": "1557590768",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

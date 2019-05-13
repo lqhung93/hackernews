@@ -1,0 +1,13 @@
+{
+  "by": "cwyers",
+  "descendants": null,
+  "id": "19889745",
+  "kids": null,
+  "parent": "19885939",
+  "score": null,
+  "text": "It&#x27;s possible that it&#x27;s less effort for a top notch compiler developer to come in and fix Julia&#x27;s compiler than it is to give Swift the data science ecosystem that Julia is building. I have little experience with it, but it&#x27;s a question of tradeoffs.",
+  "time": "1557628002",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

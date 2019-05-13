@@ -1,0 +1,16 @@
+{
+  "by": "cwyers",
+  "descendants": null,
+  "id": "19884799",
+  "kids": [
+    "19885100",
+    "19884924"
+  ],
+  "parent": "19884713",
+  "score": null,
+  "text": "The charitable way of looking at that is Chris Lattner is leading this project because the project requires certain things Lattner has experience with, and therefore the language he designed is one that meets all their criteria.<p>Now, it&#x27;s possible that they were less objective about the language choice than they believe themselves to be, but they certainly have thought about it an awful lot, and they deserve some benefit of the doubt, unless you can demonstrate what of this justification is untrue.",
+  "time": "1557554041",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

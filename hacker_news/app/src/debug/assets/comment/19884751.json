@@ -1,0 +1,15 @@
+{
+  "by": "ddragon",
+  "descendants": null,
+  "id": "19884751",
+  "kids": [
+    "19887189"
+  ],
+  "parent": "19884481",
+  "score": null,
+  "text": "I upvoted it not because because I use Swift (or intend to use it) but because I find it interesting that the concept of differentiable programming is pushed further and further. Having a host language being used to write and compile a second language (which is implemented in a third language) just feels restrictive in many ways.<p>I do think what is being done with Julia, Cassette, Flux and Zygote more interesting since it&#x27;s Julia all the way down (while Tensorflow&#x27;s backend is still C++) and the compiler work is focusing on not being specific to one implementation or technique, but allowing any such language extensions (such as auto-parallelization and other forms of source to source transformations) to be done by any 100% Julia library. So if Tensorflow for Swift (regardless of the actual reasons behind the choice of the language) proves that the technique is a significant upgrade over what currently exists, it could spark interest in the competing approaches, and I think Julia can help pushing the concept even further.",
+  "time": "1557553166",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

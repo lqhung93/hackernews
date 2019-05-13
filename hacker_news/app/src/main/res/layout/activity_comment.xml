@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="views.MainActivity">
+    tools:context="views.CommentActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/news_swipe_view"
+        android:id="@+id/comments_swipe_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <hackernews.propertyguru.com.hackernews.rv.CustomRecyclerView
-            android:id="@+id/news_rv"
+            android:id="@+id/comments_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
@@ -21,7 +21,6 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/empty_view"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

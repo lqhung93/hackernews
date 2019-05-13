@@ -1,0 +1,16 @@
+{
+  "by": "FridgeSeal",
+  "descendants": null,
+  "id": "19885100",
+  "kids": [
+    "19885939",
+    "19885161"
+  ],
+  "parent": "19884799",
+  "score": null,
+  "text": "They full on brushed off Julia with hardly a justification. It’s the strongest contender and got hardy a mention. They just dismiss it on the grounds of “oh uuuh there are...aren’t many libraries or something”, nevermind the fact that Julia’s data science and ML ecosystem is far more developed than Swift’s is.<p>Moving TF to Julia would have killed 2 birds with one stone: community size and outright number of packages would have both been fixed as a community grew up around TF in Julia.",
+  "time": "1557560985",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

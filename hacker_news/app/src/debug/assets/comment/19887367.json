@@ -1,0 +1,13 @@
+{
+  "by": "ddragon",
+  "descendants": null,
+  "id": "19887367",
+  "kids": null,
+  "parent": "19887189",
+  "score": null,
+  "text": "In the perspective of someone who writes Julia, which can also call directly any Python method (and R, Fortran, C and C++), that&#x27;s a nice stopgap, but you really want a true native ecosystem. Not only there is more mental effort dealing with two languages at the same time (which might lead to people just use Python in the first place), the whole purpose of Swift for Tensorflow is having a language with first class differentiation support, which is pointless when the ecosystem is fragmented in multiple languages.<p>And there is the risk that the community simply ends up considering that good enough and just make wrappers (since it needs a lot of work to create something nearly as good from scratch). Thankfully that didn&#x27;t happen with the Julia community, and the key is probably making the creation of the tools much easier so they can catch up to mature but constantly evolving environments.",
+  "time": "1557596598",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

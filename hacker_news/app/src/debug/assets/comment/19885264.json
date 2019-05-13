@@ -1,0 +1,13 @@
+{
+  "by": "oscargrouch",
+  "descendants": null,
+  "id": "19885264",
+  "kids": null,
+  "parent": "19884882",
+  "score": null,
+  "text": "I used swift on WSL1 and even compiled natively for Windows.<p>But i guess the pure Windows ecosystem is rough on the edges right now, but doable. And in WSL(1) things have worked pretty the same as in Linux.<p>Just download the packaged binary distributed on their site, and you are ready to go.<p>(Oh, a note; its not the tensorflow branch, if is thats what you want)",
+  "time": "1557564441",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

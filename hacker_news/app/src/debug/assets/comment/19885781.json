@@ -1,0 +1,13 @@
+{
+  "by": "yeldarb",
+  "descendants": null,
+  "id": "19885781",
+  "kids": null,
+  "parent": "19884273",
+  "score": null,
+  "text": "I took the recent fastai course that had two lessons about S4TF taught by Chris Lattner and walked away excited.<p>It’s not ready for prime time yet but the roadmap looks great. Building auto-differentiation into the language and having an easy way for anyone to experiment with core architecture changes (without killing performance) will be a huge win for everyone.<p>I expect lots of prototyping will be done on S4TF (because it will be easy for developers to keep things on the GPU with XLA and MLIR) and then the things that work will be back-ported to other ecosystems.<p><a href=\"https:&#x2F;&#x2F;medium.com&#x2F;tensorflow&#x2F;mlir-a-new-intermediate-representation-and-compiler-framework-beba999ed18d\" rel=\"nofollow\">https:&#x2F;&#x2F;medium.com&#x2F;tensorflow&#x2F;mlir-a-new-intermediate-repres...</a>",
+  "time": "1557577216",
+  "title": null,
+  "type": "comment",
+  "url": null
+}

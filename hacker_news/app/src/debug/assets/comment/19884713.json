@@ -1,0 +1,15 @@
+{
+  "by": "newen",
+  "descendants": null,
+  "id": "19884713",
+  "kids": [
+    "19884799"
+  ],
+  "parent": "19884700",
+  "score": null,
+  "text": "Swift was chosen because Chris Lattner is leading this project (Chris Lattner designed Swift). This explanation is clearly just a token justification for having chosen Swift.",
+  "time": "1557552389",
+  "title": null,
+  "type": "comment",
+  "url": null
+}
